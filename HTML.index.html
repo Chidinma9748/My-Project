@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planner App</title>
+</head>
+<body>
+    <h1>Planner App</h1>
+    
+    <h2>Add a New Task</h2>
+    <form action="/add" method="POST">
+        <label for="title">Task Title:</label>
+        <input type="text" name="title" required><br><br>
+        
+        <label for="description">Description:</label>
+        <input type="text" name="description" required><br><br>
+        
+        <label for="due_date">Due Date (YYYY-MM-DD):</label>
+        <input type="text" name="due_date" required><br><br>
+        
+        <input type="submit" value="Add Task">
+    </form>
+    
+    <h2>Your Tasks</h2>
+    <ul>
+        {% for index, task in enumerate(tasks) %}
+            <li>
+                <strong>{{ task.title }}</strong> - {{ task.description }} (Due: {{ task.due_date }})
+                {% if task.completed %}
+                    <span style="color: green;">[Completed]</span>
+                {% else %}
+                    <a href="/complete/{{ index }}">Complete</a>
+                {% endif %}
+                <a href="/delete/{{ index }}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+
